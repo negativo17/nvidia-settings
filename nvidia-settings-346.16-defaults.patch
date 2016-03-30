@@ -1,0 +1,53 @@
+diff -Naur nvidia-settings-346.16.old/samples/Makefile nvidia-settings-346.16/samples/Makefile
+--- nvidia-settings-346.16.old/samples/Makefile	2014-11-08 06:00:06.000000000 +0100
++++ nvidia-settings-346.16/samples/Makefile	2014-11-14 13:25:40.740983460 +0100
+@@ -59,6 +59,7 @@
+ LDFLAGS               += -L $(XNVCTRL_DIR)
+ LIBS                  += -lXNVCtrl -lXext -lX11
+ 
++LDFLAGS               += -Wl,--as-needed
+ 
+ ##############################################################################
+ # samples
+diff -Naur nvidia-settings-346.16.old/src/libXNVCtrl/utils.mk nvidia-settings-346.16/src/libXNVCtrl/utils.mk
+--- nvidia-settings-346.16.old/src/libXNVCtrl/utils.mk	2014-11-08 06:00:09.000000000 +0100
++++ nvidia-settings-346.16/src/libXNVCtrl/utils.mk	2014-11-14 13:26:27.311652890 +0100
+@@ -36,6 +36,8 @@
+ LDFLAGS               ?=
+ BIN_LDFLAGS           ?=
+ 
++LDFLAGS               += -Wl,--as-needed
++
+ HOST_CC               ?= $(CC)
+ HOST_LD               ?= $(LD)
+ HOST_CFLAGS           ?= $(CFLAGS)
+@@ -55,7 +57,7 @@
+ 
+ INSTALL               ?= install
+ INSTALL_BIN_ARGS      ?= -m 755
+-INSTALL_LIB_ARGS      ?= -m 644
++INSTALL_LIB_ARGS      ?= -m 755
+ INSTALL_DOC_ARGS      ?= -m 644
+ 
+ M4                    ?= m4
+diff -Naur nvidia-settings-346.16.old/utils.mk nvidia-settings-346.16/utils.mk
+--- nvidia-settings-346.16.old/utils.mk	2014-11-08 06:00:06.000000000 +0100
++++ nvidia-settings-346.16/utils.mk	2014-11-14 13:26:14.679742554 +0100
+@@ -36,6 +36,8 @@
+ LDFLAGS               ?=
+ BIN_LDFLAGS           ?=
+ 
++LDFLAGS               += -Wl,--as-needed
++
+ HOST_CC               ?= $(CC)
+ HOST_LD               ?= $(LD)
+ HOST_CFLAGS           ?= $(CFLAGS)
+@@ -55,7 +57,7 @@
+ 
+ INSTALL               ?= install
+ INSTALL_BIN_ARGS      ?= -m 755
+-INSTALL_LIB_ARGS      ?= -m 644
++INSTALL_LIB_ARGS      ?= -m 755
+ INSTALL_DOC_ARGS      ?= -m 644
+ 
+ M4                    ?= m4
