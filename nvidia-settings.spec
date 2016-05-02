@@ -1,5 +1,5 @@
 Name:           nvidia-settings
-Version:        361.42
+Version:        364.19
 Release:        1%{?dist}
 Summary:        Configure the NVIDIA graphics driver
 Epoch:          2
@@ -10,8 +10,8 @@ ExclusiveArch:  %{ix86} x86_64
 Source0:        ftp://download.nvidia.com/XFree86/%{name}/%{name}-%{version}.tar.bz2
 Source1:        %{name}-load.desktop
 Patch0:         %{name}-256.35-validate.patch
-Patch1:         %{name}-346.16-defaults.patch
-Patch2:         %{name}-346.16-libXNVCtrl-so.patch
+Patch1:         %{name}-364.12-defaults.patch
+Patch2:         %{name}-364.12-libXNVCtrl-so.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gtk2-devel > 2.4
@@ -67,23 +67,20 @@ developing applications that use the NV-CONTROL API.
 %patch1 -p1
 %patch2 -p1
 
-# Change all occurrences of destinations in each utils.mk
-find . -name "utils.mk" -exec sed -i \
-    -e 's|/usr/local|%{_prefix}|g' \
-    -e 's|LIBDIR = $(DESTDIR)$(PREFIX)/lib|LIBDIR = $(DESTDIR)$(PREFIX)/%{_lib}|g' \
-    {} \;
+# Remove additional CFLAGS added when enabling DEBUG
+sed -i '/+= -O0 -g/d' utils.mk src/libXNVCtrl/utils.mk
 
-sed -i -e 's|-lXxf86vm|-lXxf86vm -ldl -lm|g' Makefile
+# Change all occurrences of destinations in each utils.mk.
+sed -i -e 's|$(PREFIX)/lib|$(PREFIX)/%{_lib}|g' utils.mk src/libXNVCtrl/utils.mk
 
 %build
-export CFLAGS="$RPM_OPT_FLAGS"
-#make %{?_smp_mflags} \
-make \
-    NV_USE_BUNDLED_LIBJANSSON=0 \
+make %{?_smp_mflags} \
+    DEBUG=1 \
     NV_VERBOSE=1 \
-    STRIP_CMD="true" \
-    X_LDFLAGS="-L%{_libdir}" \
+    PREFIX=%{_prefix} \
+    NV_USE_BUNDLED_LIBJANSSON=0 \
     NVML_AVAILABLE=0
+#X_LDFLAGS="-L%{_libdir}" \
 
 %install
 # Install libXNVCtrl headers
@@ -91,7 +88,7 @@ mkdir -p %{buildroot}%{_includedir}/NVCtrl
 cp -af src/libXNVCtrl/*.h %{buildroot}%{_includedir}/NVCtrl/
 
 # Install main program
-%make_install INSTALL="install -p" NV_USE_BUNDLED_LIBJANSSON=0
+%make_install INSTALL="install -p" PREFIX=%{_prefix}
 
 # Install desktop file
 mkdir -p %{buildroot}%{_datadir}/{applications,pixmaps}
@@ -130,6 +127,10 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/%{name}-load.desk
 %{_libdir}/libXNVCtrl.so
 
 %changelog
+* Mon May 02 2016 Simone Caronni <negativo17@gmail.com> - 2:364.19-1
+- Update to 364.19.
+- Update make parameters.
+
 * Wed Mar 30 2016 Simone Caronni <negativo17@gmail.com> - 2:361.42-1
 - Update to 361.42.
 
