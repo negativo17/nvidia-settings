@@ -1,5 +1,5 @@
 Name:           nvidia-settings
-Version:        370.28
+Version:        375.20
 Release:        1%{?dist}
 Summary:        Configure the NVIDIA graphics driver
 Epoch:          2
@@ -11,8 +11,8 @@ Source0:        ftp://download.nvidia.com/XFree86/%{name}/%{name}-%{version}.tar
 Source1:        %{name}-load.desktop
 Source2:        %{name}.appdata.xml
 Patch0:         %{name}-367.44-validate.patch
-Patch1:         %{name}-364.12-defaults.patch
-Patch2:         %{name}-364.12-libXNVCtrl-so.patch
+Patch1:         %{name}-375.10-defaults.patch
+Patch2:         %{name}-375.10-libXNVCtrl-so.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gtk2-devel > 2.4
@@ -24,8 +24,6 @@ BuildRequires:  libXrandr-devel
 BuildRequires:  libXv-devel
 BuildRequires:  m4
 BuildRequires:  mesa-libGL-devel
-# Not yet available with version 340.29 (error: 'NVML_ERROR_OPERATING_SYSTEM' undeclared
-#BuildRequires:  nvidia-driver-NVML-devel > 340.29
 
 %if 0%{?fedora} || 0%{?rhel} >= 7
 BuildRequires:  gtk3-devel
@@ -69,6 +67,9 @@ developing applications that use the NV-CONTROL API.
 %patch1 -p1
 %patch2 -p1
 
+# Remove bundled jansson
+rm -fr src/jansson
+
 # Remove additional CFLAGS added when enabling DEBUG
 sed -i '/+= -O0 -g/d' utils.mk src/libXNVCtrl/utils.mk
 
@@ -78,10 +79,11 @@ sed -i -e 's|$(PREFIX)/lib|$(PREFIX)/%{_lib}|g' utils.mk src/libXNVCtrl/utils.mk
 %build
 make %{?_smp_mflags} \
     DEBUG=1 \
-    NV_VERBOSE=1 \
-    PREFIX=%{_prefix} \
     NV_USE_BUNDLED_LIBJANSSON=0 \
-    NVML_AVAILABLE=0
+    NV_VERBOSE=1 \
+    NVML_CFLAGS="-I %{_includedir}/cuda" \
+    NVML_EXPERIMENTAL=1 \
+    PREFIX=%{_prefix}
 #X_LDFLAGS="-L%{_libdir}" \
 
 %install
@@ -90,7 +92,7 @@ mkdir -p %{buildroot}%{_includedir}/NVCtrl
 cp -af src/libXNVCtrl/*.h %{buildroot}%{_includedir}/NVCtrl/
 
 # Install main program
-%make_install INSTALL="install -p" PREFIX=%{_prefix}
+%make_install INSTALL="install -p" PREFIX=%{_prefix} NV_USE_BUNDLED_LIBJANSSON=0
 
 # Install desktop file
 mkdir -p %{buildroot}%{_datadir}/{applications,pixmaps}
@@ -146,6 +148,10 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_datadir}/appdata/
 %{_libdir}/libXNVCtrl.so
 
 %changelog
+* Sat Nov 19 2016 Simone Caronni <negativo17@gmail.com> - 2:375.20-1
+- Update to 375.20, use internal NVML header.
+- Specify to use system jansson also on install, or bundled copy is used.
+
 * Fri Sep 09 2016 Simone Caronni <negativo17@gmail.com> - 2:370.28-1
 - Update to 370.28.
 
