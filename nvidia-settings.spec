@@ -1,5 +1,5 @@
 Name:           nvidia-settings
-Version:        465.27
+Version:        465.31
 Release:        1%{?dist}
 Summary:        Configure the NVIDIA graphics driver
 Epoch:          3
@@ -144,6 +144,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %{_libdir}/libXNVCtrl.so
 
 %changelog
+* Wed May 26 2021 Simone Caronni <negativo17@gmail.com> - 3:465.31-1
+- Update to 465.31.
+
 * Sat May 01 2021 Simone Caronni <negativo17@gmail.com> - 3:465.27-1
 - Update to 465.27.
 
