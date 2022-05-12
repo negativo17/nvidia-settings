@@ -1,5 +1,5 @@
 Name:           nvidia-settings
-Version:        510.68.02
+Version:        515.43.04
 Release:        1%{?dist}
 Summary:        Configure the NVIDIA graphics driver
 Epoch:          3
@@ -18,8 +18,6 @@ Patch3:         %{name}-lib-permissions.patch
 BuildRequires:  desktop-file-utils
 BuildRequires:  dbus-devel
 BuildRequires:  gcc
-BuildRequires:  gtk2-devel > 2.4
-BuildRequires:  gtk3-devel
 BuildRequires:  jansson-devel
 BuildRequires:  libappstream-glib
 BuildRequires:  libvdpau-devel >= 1.0
@@ -30,6 +28,9 @@ BuildRequires:  libXv-devel
 BuildRequires:  m4
 BuildRequires:  mesa-libEGL-devel
 BuildRequires:  mesa-libGL-devel
+BuildRequires:  pkgconfig(gtk+-2.0)
+BuildRequires:  pkgconfig(gtk+-3.0)
+BuildRequires:  pkgconfig(wayland-client)
 
 Requires:       nvidia-libXNVCtrl%{?_isa} = %{?epoch}:%{version}-%{release}
 Requires:       nvidia-driver%{?_isa} = %{?epoch}:%{version}
@@ -129,8 +130,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %endif
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
-%{_libdir}/libnvidia-gtk3.so.%{version}
 %exclude %{_libdir}/libnvidia-gtk2.so.%{version}
+%{_libdir}/libnvidia-gtk3.so.%{version}
+%{_libdir}/libnvidia-wayland-client.so.%{version}
 %{_mandir}/man1/%{name}.*
 %{_sysconfdir}/xdg/autostart/%{name}-load.desktop
 
@@ -144,6 +146,11 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %{_libdir}/libXNVCtrl.so
 
 %changelog
+* Thu May 12 2022 Simone Caronni <negativo17@gmail.com> - 3:515.43.04-1
+- Update to 515.43.04.
+- Update SPEC file.
+- Update patches from upstream.
+
 * Mon May 02 2022 Simone Caronni <negativo17@gmail.com> - 3:510.68.02-1
 - Update to 510.68.02.
 
