@@ -1,7 +1,6 @@
-diff -Naur nvidia-settings-460.27.04.old/src/Makefile nvidia-settings-460.27.04/src/Makefile
---- nvidia-settings-460.27.04.old/src/Makefile	2020-12-20 16:44:10.709176203 +0100
-+++ nvidia-settings-460.27.04/src/Makefile	2020-12-20 16:46:34.772551199 +0100
-@@ -42,7 +42,7 @@
+--- nvidia-settings-515.00.old/src/Makefile	2022-01-06 22:18:27 -0800
++++ nvidia-settings-515.00/src/Makefile	2022-01-06 22:18:27 -0800
+@@ -55,7 +55,7 @@
  endif
  
  ifndef GTK2_LDFLAGS
@@ -10,7 +9,7 @@ diff -Naur nvidia-settings-460.27.04.old/src/Makefile nvidia-settings-460.27.04/
  endif
  
  ifndef GTK3_AVAILABLE
-@@ -55,7 +55,7 @@
+@@ -68,7 +68,7 @@
    endif
  
    ifndef GTK3_LDFLAGS
@@ -19,7 +18,7 @@ diff -Naur nvidia-settings-460.27.04.old/src/Makefile nvidia-settings-460.27.04/
    endif
  else
    GTK3_CFLAGS ?=
-@@ -279,19 +279,19 @@
+@@ -309,19 +309,19 @@
  $(eval $(call DEBUG_INFO_RULES, $(GTK2LIB)))
  $(GTK2LIB).unstripped: $(LIBXNVCTRL) $(GTK2_OBJS) $(XCP_OBJS) $(IMAGE_OBJS) $(VERSION_MK)
  	$(call quiet_cmd,LINK) -shared $(CFLAGS) $(LDFLAGS) $(BIN_LDFLAGS) \
@@ -44,4 +43,4 @@ diff -Naur nvidia-settings-460.27.04.old/src/Makefile nvidia-settings-460.27.04/
 +	    $(LIBXNVCTRL) $(LIBS) $(GTK3_LIBS)
  endif
  
- # define the rule to build each object file
+ ifdef BUILD_WAYLANDLIB
