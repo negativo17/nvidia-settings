@@ -1,7 +1,7 @@
-diff -Naur nvidia-settings-515.43.04.old/src/libXNVCtrl/utils.mk nvidia-settings-515.43.04/src/libXNVCtrl/utils.mk
---- nvidia-settings-515.43.04.old/src/libXNVCtrl/utils.mk	2022-05-12 13:22:02.541971879 +0200
-+++ nvidia-settings-515.43.04/src/libXNVCtrl/utils.mk	2022-05-12 13:26:02.606316574 +0200
-@@ -89,7 +89,7 @@
+diff -Naur nvidia-settings-525.60.11.old/src/libXNVCtrl/utils.mk nvidia-settings-525.60.11/src/libXNVCtrl/utils.mk
+--- nvidia-settings-525.60.11.old/src/libXNVCtrl/utils.mk	2022-12-01 07:56:28.691047034 +0100
++++ nvidia-settings-525.60.11/src/libXNVCtrl/utils.mk	2022-12-01 07:56:49.882413208 +0100
+@@ -92,7 +92,7 @@
  
  INSTALL               ?= install
  INSTALL_BIN_ARGS      ?= -m 755
@@ -10,10 +10,10 @@ diff -Naur nvidia-settings-515.43.04.old/src/libXNVCtrl/utils.mk nvidia-settings
  INSTALL_DOC_ARGS      ?= -m 644
  
  M4                    ?= m4
-diff -Naur nvidia-settings-515.43.04.old/utils.mk nvidia-settings-515.43.04/utils.mk
---- nvidia-settings-515.43.04.old/utils.mk	2022-05-12 13:22:02.504971209 +0200
-+++ nvidia-settings-515.43.04/utils.mk	2022-05-12 13:26:02.607316592 +0200
-@@ -89,7 +89,7 @@
+diff -Naur nvidia-settings-525.60.11.old/utils.mk nvidia-settings-525.60.11/utils.mk
+--- nvidia-settings-525.60.11.old/utils.mk	2022-12-01 07:56:28.651046343 +0100
++++ nvidia-settings-525.60.11/utils.mk	2022-12-01 07:56:49.883413225 +0100
+@@ -92,7 +92,7 @@
  
  INSTALL               ?= install
  INSTALL_BIN_ARGS      ?= -m 755

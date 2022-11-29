@@ -11,9 +11,9 @@ Source0:        https://github.com/NVIDIA/%{name}/archive/refs/tags/%{version}.t
 Source1:        %{name}-load.desktop
 Source2:        %{name}.appdata.xml
 Patch0:         %{name}-desktop.patch
-Patch1:         %{name}-link-order.patch
-Patch2:         %{name}-libXNVCtrl.patch
-Patch3:         %{name}-lib-permissions.patch
+Patch1:         %{name}-lib-permissions.patch
+Patch2:         %{name}-link-order.patch
+Patch3:         %{name}-libXNVCtrl.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  dbus-devel
@@ -28,7 +28,6 @@ BuildRequires:  libXv-devel
 BuildRequires:  m4
 BuildRequires:  mesa-libEGL-devel
 BuildRequires:  mesa-libGL-devel
-BuildRequires:  pkgconfig(gtk+-2.0)
 BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(wayland-client)
 
@@ -130,7 +129,6 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %endif
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
-%exclude %{_libdir}/libnvidia-gtk2.so.%{version}
 %{_libdir}/libnvidia-gtk3.so.%{version}
 %{_libdir}/libnvidia-wayland-client.so.%{version}
 %{_mandir}/man1/%{name}.*
@@ -148,6 +146,7 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %changelog
 * Tue Nov 29 2022 Simone Caronni <negativo17@gmail.com> - 3:525.60.11-1
 - Update to 525.60.11.
+- Finally drop gtk2.
 
 * Thu Oct 13 2022 Simone Caronni <negativo17@gmail.com> - 3:520.56.06-1
 - Update to 520.56.06.
