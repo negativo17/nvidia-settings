@@ -31,6 +31,10 @@ BuildRequires:  mesa-libGL-devel
 BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(wayland-client)
 
+%if 0%{?fedora} || 0%{?rhel} >= 8
+BuildRequires:  libappstream-glib
+%endif
+
 Requires:       nvidia-libXNVCtrl%{?_isa} = %{?epoch}:%{version}-%{release}
 Requires:       nvidia-driver%{?_isa} = %{?epoch}:%{version}
 # Loaded at runtime
