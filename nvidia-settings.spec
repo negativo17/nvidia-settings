@@ -1,6 +1,6 @@
 Name:           nvidia-settings
 Version:        550.54.14
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Configure the NVIDIA graphics driver
 Epoch:          3
 License:        GPLv2+
@@ -14,6 +14,7 @@ Patch0:         %{name}-desktop.patch
 Patch1:         %{name}-lib-permissions.patch
 Patch2:         %{name}-link-order.patch
 Patch3:         %{name}-libXNVCtrl.patch
+Patch4:         %{name}-ld-dep-remove.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  dbus-devel
@@ -148,6 +149,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %{_libdir}/libXNVCtrl.so
 
 %changelog
+* Fri Mar 08 2024 Simone Caronni <negativo17@gmail.com> - 3:550.54.14-2
+- Add missing patch.
+
 * Sun Mar 03 2024 Simone Caronni <negativo17@gmail.com> - 3:550.54.14-1
 - Update to 550.54.14.
 
