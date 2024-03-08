@@ -1,11 +1,11 @@
 Name:           nvidia-settings
 Version:        550.54.14
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Configure the NVIDIA graphics driver
 Epoch:          3
 License:        GPLv2+
 URL:            http://www.nvidia.com/object/unix.html
-ExclusiveArch:  %{ix86} x86_64
+ExclusiveArch:  %{ix86} x86_64 ppc64le aarch64
 
 Source0:        https://github.com/NVIDIA/%{name}/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:        %{name}-load.desktop
@@ -149,6 +149,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %{_libdir}/libXNVCtrl.so
 
 %changelog
+* Sat Mar 09 2024 Simone Caronni <negativo17@gmail.com> - 3:550.54.14-3
+- Enable aarch64.
+
 * Fri Mar 08 2024 Simone Caronni <negativo17@gmail.com> - 3:550.54.14-2
 - Add missing patch.
 
