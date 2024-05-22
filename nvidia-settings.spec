@@ -1,6 +1,6 @@
 Name:           nvidia-settings
-Version:        550.78
-Release:        2%{?dist}
+Version:        555.42.02
+Release:        1%{?dist}
 Summary:        Configure the NVIDIA graphics driver
 Epoch:          3
 License:        GPLv2+
@@ -149,6 +149,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %{_libdir}/libXNVCtrl.so
 
 %changelog
+* Wed May 22 2024 Simone Caronni <negativo17@gmail.com> - 3:555.42.02-1
+- Update to 555.42.02.
+
 * Tue Apr 30 2024 Simone Caronni <negativo17@gmail.com> - 3:550.78-2
 - Switch to Nvidia provided tarball.
 
