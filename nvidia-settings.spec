@@ -32,16 +32,10 @@ BuildRequires:  mesa-libGL-devel
 BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(wayland-client)
 
-%if 0%{?fedora} || 0%{?rhel} >= 8
-BuildRequires:  libappstream-glib
-%endif
-
 Requires:       nvidia-libXNVCtrl%{?_isa} = %{?epoch}:%{version}-%{release}
 Requires:       nvidia-driver%{?_isa} = %{?epoch}:%{version}
 # Loaded at runtime
 Requires:       libvdpau%{?_isa} >= 0.9
-
-Obsoletes:      nvidia-settings-desktop < %{?epoch}:%{version}-%{release}
 
 %description
 The %{name} utility is a tool for configuring the NVIDIA graphics
@@ -110,28 +104,18 @@ cp doc/%{name}.png %{buildroot}%{_datadir}/pixmaps/
 # Install autostart file to load settings at login
 install -p -D -m 644 %{SOURCE1} %{buildroot}%{_sysconfdir}/xdg/autostart/%{name}-load.desktop
 
-%if 0%{?fedora} || 0%{?rhel} >= 8
 # install AppData and add modalias provides
 mkdir -p %{buildroot}%{_metainfodir}/
 install -p -m 0644 %{SOURCE2} %{buildroot}%{_metainfodir}/
-%endif
 
 %check
 desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/%{name}-load.desktop
-%if 0%{?fedora} || 0%{?rhel} >= 8
 appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appdata.xml
-%endif
-
-%ldconfig_scriptlets
-
-%ldconfig_scriptlets -n nvidia-libXNVCtrl
 
 %files
 %{_bindir}/%{name}
-%if 0%{?fedora} || 0%{?rhel} >= 8
 %{_metainfodir}/%{name}.appdata.xml
-%endif
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
 %{_libdir}/libnvidia-gtk3.so.%{version}
