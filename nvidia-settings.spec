@@ -1,5 +1,5 @@
 Name:           nvidia-settings
-Version:        555.58.02
+Version:        560.28.03
 Release:        1%{?dist}
 Summary:        Configure the NVIDIA graphics driver
 Epoch:          3
@@ -31,6 +31,7 @@ BuildRequires:  mesa-libEGL-devel
 BuildRequires:  mesa-libGL-devel
 BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(wayland-client)
+BuildRequires:  vulkan-headers
 
 Requires:       nvidia-libXNVCtrl%{?_isa} = %{?epoch}:%{version}-%{release}
 Requires:       nvidia-driver%{?_isa} = %{?epoch}:%{version}
@@ -133,6 +134,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %{_libdir}/libXNVCtrl.so
 
 %changelog
+* Mon Aug 05 2024 Simone Caronni <negativo17@gmail.com> - 3:560.28.03-1
+- Update to 560.28.03.
+
 * Tue Jul 02 2024 Simone Caronni <negativo17@gmail.com> - 3:555.58.02-1
 - Update to 555.58.02.
 
