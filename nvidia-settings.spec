@@ -1,6 +1,6 @@
 Name:           nvidia-settings
 Version:        590.48.01
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Configure the NVIDIA graphics driver
 Epoch:          3
 License:        GPLv2+
@@ -14,7 +14,7 @@ Patch0:         %{name}-desktop.patch
 Patch1:         %{name}-lib-permissions.patch
 Patch2:         %{name}-link-order.patch
 Patch3:         %{name}-libXNVCtrl.patch
-Patch4:         %{name}-ld-dep-remove.patch
+Patch4:         %{name}-objcopy.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  dbus-devel
@@ -134,6 +134,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %{_libdir}/libXNVCtrl.so
 
 %changelog
+* Mon Feb 02 2026 Simone Caronni <negativo17@gmail.com> - 3:590.48.01-2
+- Switch to objcopy in place of ld as it crashes when generating binary objects
+  from images.
+
 * Thu Dec 18 2025 Simone Caronni <negativo17@gmail.com> - 3:590.48.01-1
 - Update to 590.48.01.
 
