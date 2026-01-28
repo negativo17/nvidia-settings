@@ -14,7 +14,7 @@ Patch0:         %{name}-desktop.patch
 Patch1:         %{name}-lib-permissions.patch
 Patch2:         %{name}-link-order.patch
 Patch3:         %{name}-libXNVCtrl.patch
-Patch4:         %{name}-ld-dep-remove.patch
+Patch4:         %{name}-objcopy.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  dbus-devel
