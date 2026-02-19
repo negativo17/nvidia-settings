@@ -1,6 +1,6 @@
 Name:           nvidia-settings
 Version:        590.48.01
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Configure the NVIDIA graphics driver
 Epoch:          3
 License:        GPLv2+
@@ -14,7 +14,6 @@ Patch0:         %{name}-desktop.patch
 Patch1:         %{name}-lib-permissions.patch
 Patch2:         %{name}-link-order.patch
 Patch3:         %{name}-libXNVCtrl.patch
-Patch4:         %{name}-objcopy.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  dbus-devel
@@ -134,6 +133,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %{_libdir}/libXNVCtrl.so
 
 %changelog
+* Thu Feb 19 2026 Simone Caronni <negativo17@gmail.com> - 3:590.48.01-3
+- Drop objcopy workaround for broken binutils RCs in Fedora 44+.
+
 * Mon Feb 02 2026 Simone Caronni <negativo17@gmail.com> - 3:590.48.01-2
 - Switch to objcopy in place of ld as it crashes when generating binary objects
   from images.
